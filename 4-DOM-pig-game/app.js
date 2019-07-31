@@ -51,7 +51,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 
         if (dice0 !== 1 && dice1 !== 1) {
             // Add score
-            roundScore += (dice0 + dice1);
+            roundScore += dice0 + dice1;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         } else {
             // Next player
@@ -63,7 +63,13 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
-    winScore = parseInt(document.querySelector('.score').value);
+    winScore = document.querySelector('.final-score').value;
+
+    // Undefined, 0, null or "" are COERCE to false
+    // Anything else is COERCED to true
+    if (!winScore) {
+        winScore = 100;
+    }
 
     if (gamePlaying) {
         // Add CURRENT score to GLOBAL score
